@@ -45,18 +45,17 @@ namespace EmployeeSample.Repositories
             }
         }
 
-        public async  Task<int> CreateAsync(Employee entity)
+        public async  Task<int> CreateAsync(Employee employee)
         {
             try
             {
-                var query = "INSERT INTO Employees (Fullname, Address, Contact, Birthday, Salary) VALUES (@Fullname, @Address, @Contact, @Birthday, @Salary)";
+                var query = "INSERT INTO Employees (Fullname, Address, Contact, Salary) VALUES (@Fullname, @Address, @Contact, @Salary)";
 
                 var parameters = new DynamicParameters();
-                parameters.Add("Fullname", entity.Fullname, DbType.String);
-                parameters.Add("Address", entity.Address, DbType.String);
-                parameters.Add("Contact", entity.Contact, DbType.String);
-                parameters.Add("Birhtday", entity.Birthday, DbType.DateTime);
-                parameters.Add("Salary", entity.Salary, DbType.Decimal);
+                parameters.Add("Fullname", employee.Fullname, DbType.String);
+                parameters.Add("Address", employee.Address, DbType.String);
+                parameters.Add("Contact", employee.Contact, DbType.String);
+                parameters.Add("Salary", employee.Salary, DbType.Decimal);
 
                 using (var connection = CreateConnection())
                 {
@@ -69,21 +68,21 @@ namespace EmployeeSample.Repositories
             }
         }
 
-        public async Task<int> UpdateAsync(Employee entity)
+        public async Task<int> UpdateAsync(Employee employee)
         {
             try
             {
-                var query = "UPDATE Employees SET Fullname = @Fullname, Address = @Address, Contact = @Contact, Birhtday=@Birhtday, Salary=@Salary WHERE Id = @Id";
+                var query = "UPDATE Employees SET Fullname = @Fullname, Address = @Address, Contact = @Contact, Salary= @Salary WHERE Id = @Id";
 
                 var parameters = new DynamicParameters();
-                parameters.Add("Fullname", entity.Fullname, DbType.String);
-                parameters.Add("Address", entity.Address, DbType.String);
-                parameters.Add("Contact", entity.Contact, DbType.String);
-                parameters.Add("Birhtday", entity.Birthday, DbType.DateTime);
-                parameters.Add("Salary", entity.Salary, DbType.Decimal);
+                parameters.Add("Fullname", employee.Fullname, DbType.String);
+                parameters.Add("Address", employee.Address, DbType.String);
+                parameters.Add("Contact", employee.Contact, DbType.String);
+                parameters.Add("Salary", employee.Salary, DbType.Decimal);
 
                 using (var connection = CreateConnection())
                 {
+                    
                     return (await connection.ExecuteAsync(query, parameters));
                 }
             }

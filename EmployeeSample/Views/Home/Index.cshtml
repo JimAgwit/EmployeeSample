@@ -3,11 +3,6 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-
 <div class="row">
     <div class="col">
         <h1>Products</h1>
@@ -34,9 +29,6 @@
                 @Html.DisplayNameFor(model => model.Contact)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Birthday)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Salary)
             </th>
             <th></th>
@@ -57,9 +49,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Contact)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Birthday)
-                </td>
+              
                 <td>
                     @Html.DisplayFor(modelItem => item.Salary)
                 </td>

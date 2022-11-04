@@ -7,8 +7,8 @@ namespace EmployeeSample.Repositories
     {
         Task<List<T>> GetAllAsync();
         Task<T> GetByIdAsync(int id);
-        Task<int> CreateAsync(T entity);
-        Task<int> UpdateAsync(T entity);
-        Task<int> DeleteAsync(T entity);
+        Task<int> CreateAsync(T employee);
+        Task<int> UpdateAsync(T employee);
+        Task<int> DeleteAsync(T employee);
     }
 }

@@ -8,7 +8,7 @@ namespace EmployeeSample.Models
         public string? Fullname { get; set; }
         public string? Address { get; set; }
         public string? Contact { get; set; }
-        public DateTime Birthday { get; set; }
+      
         public float Salary { get; set; }
     }
 }
