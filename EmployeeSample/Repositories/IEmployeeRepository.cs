@@ -2,8 +2,9 @@
 
 namespace EmployeeSample.Repositories
 {
-    public interface IEmployeeRepository :IRepository<Employee>
+    public interface IEmployeeRepository : IRepository<Employee>
     {
+        //Task<string?> GetByIdAsync();
 
     }
 }
