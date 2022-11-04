@@ -17,6 +17,11 @@ namespace EmployeeSample.Controllers
             return View( _employeeService.GetAllEmployees());
         }
 
+        public IActionResult Details(int id)
+        {
+            return View(_employeeService.GetEmployeeById(id));
+        }
+
 
     }
 }
