@@ -73,7 +73,8 @@ namespace EmployeeSample.Controllers
             }
             return View(employee);
         }
-       
+
+        //Update
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Employee employee)
@@ -82,11 +83,12 @@ namespace EmployeeSample.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var dbProduct = await _employeeRepository.GetByIdAsync(id);
-                    if (await TryUpdateModelAsync<Employee>(dbProduct))
+                    var dbEmp = await _employeeRepository.GetByIdAsync(id);
+                    if (await TryUpdateModelAsync(dbEmp))
                     {
-                        await _employeeRepository.UpdateAsync(dbProduct);
+                        await _employeeRepository.UpdateAsync(dbEmp);
                         return RedirectToAction(nameof(Index));
+
                     }
                 }
             }
@@ -96,6 +98,25 @@ namespace EmployeeSample.Controllers
                 ModelState.AddModelError("", "Unable to save changes.");
             }
             return View(employee);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var dbEmp = await _employeeRepository.GetByIdAsync(id);
+                if (dbEmp != null)
+                {
+                    await _employeeRepository.DeleteAsync(dbEmp);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Unable to delete. ");
+            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

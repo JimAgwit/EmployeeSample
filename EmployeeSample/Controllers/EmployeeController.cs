@@ -60,10 +60,10 @@ namespace EmployeeSample.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var dbProduct = await _employeeService.GetEmployeeById(id);
-                    if (await TryUpdateModelAsync(dbProduct))
+                    var dbEmp = await _employeeService.GetEmployeeById(id);
+                    if (await TryUpdateModelAsync(dbEmp))
                     {
-                        await _employeeService.UpdateEmployeeAsync(dbProduct);
+                        await _employeeService.UpdateEmployeeAsync(dbEmp);
                         return RedirectToAction(nameof(Index));
                     }
                 }
@@ -73,6 +73,25 @@ namespace EmployeeSample.Controllers
                 ModelState.AddModelError("", "Unable to save changes.");
             }
             return View(employee);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var dbEmp = await _employeeService.GetEmployeeById(id);
+                if (dbEmp != null)
+                {
+                    await _employeeService.DeleteEmployeeAsync(dbEmp);
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Unable to delete. ");
+            }
+
+            return RedirectToAction(nameof(Index));
         }
     }
     

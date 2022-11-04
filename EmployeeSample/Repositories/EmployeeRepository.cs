@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using EmployeeSample.Models;
 using System.Data;
+using static Dapper.SqlMapper;
 
 namespace EmployeeSample.Repositories
 {
@@ -29,7 +30,7 @@ namespace EmployeeSample.Repositories
         {
             try
             {
-                var query = "SELECT * FROM Employees WHERE Id = @Id";
+                var query = "SELECT * FROM Employees WHERE Id = @id";
 
                 var parameters = new DynamicParameters();
                 parameters.Add("Id", id, DbType.Int32);
@@ -79,6 +80,7 @@ namespace EmployeeSample.Repositories
                 parameters.Add("Address", employee.Address, DbType.String);
                 parameters.Add("Contact", employee.Contact, DbType.String);
                 parameters.Add("Salary", employee.Salary, DbType.Decimal);
+                parameters.Add("Id", employee.Id, DbType.Int32);
 
                 using (var connection = CreateConnection())
                 {
@@ -89,6 +91,7 @@ namespace EmployeeSample.Repositories
             catch (Exception ex)
             {
                 throw new Exception(ex.Message, ex);
+
             }
         }
 
