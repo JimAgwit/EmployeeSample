@@ -1,8 +1,16 @@
+using ClosedXML.Excel;
+using Dapper;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using EmployeeSample.Models;
 using EmployeeSample.Repositories;
 using EmployeeSample.Services;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.tool.xml;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using System.Diagnostics;
+using System.Text;
 
 namespace EmployeeSample.Controllers
 {
@@ -20,7 +28,10 @@ namespace EmployeeSample.Controllers
         public async Task<IActionResult> IndexAsync()
         {
             return View(await _employeeRepository.GetAllAsync());
+
         }
+
+
 
         public async Task<IActionResult> Details(int id)
         {
@@ -118,5 +129,23 @@ namespace EmployeeSample.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpPost]
+        public FileResult ExportExcel(string ExportData)
+        {
+            using (MemoryStream stream = new System.IO.MemoryStream())
+            {
+                StringReader reader = new StringReader(ExportData);
+                Document PdfFile = new Document(PageSize.A4);
+                PdfWriter writer = PdfWriter.GetInstance(PdfFile, stream);
+                PdfFile.Open();
+                XMLWorkerHelper.GetInstance().ParseXHtml(writer, PdfFile, reader);
+                PdfFile.Close();
+                return File(stream.ToArray(), "application/pdf", "ExportData.pdf");
+            }
+        }
+
+
+
     }
 }

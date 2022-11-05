@@ -5,9 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
+<div id="PrintPDF">
 <h1>@Model.Fullname</h1>
 <hr />
-<div>
 
     <dl class="row">
         <dt class="col-sm-2">
@@ -36,7 +36,29 @@
         </dd>
     </dl>
 </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
-    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+<div class="row-md3">
+
+   
+
+    <form method="post" asp-controller="Home" asp-action="ExportExcel">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
+        <input type="hidden" name="ExportData" id="ExportData" />
+        <input type="submit" id="btnSubmit" value="Export" class="btn btn-info" />
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </form>
+
+    
+
+
 </div>
+  
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {
+            $("input[name='ExportData']").val($("#PrintPDF").html());
+            console.log("Here");
+        });
+    });
+</script>  

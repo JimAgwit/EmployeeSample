@@ -14,6 +14,7 @@ namespace EmployeeSample.Services
         public async Task<List<Employee>> GetAllEmployees ()
         {
             return await _employeeRepository.GetAllAsync();
+           
         }
 
         public async Task<Employee> GetEmployeeById(int id)
